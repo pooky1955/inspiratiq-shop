@@ -199,7 +199,7 @@ const CartView = ({ classes, phoneMatches }) => {
   useEffect(()=>{
     addItem(shippingProduct)
     setItemQuantity(shippingProduct.sku,1);
-  },[addItem,shippingProduct,setItemQuantity])
+  },[])
   const subTotalValue = formatPrice(
     totalPrice,
     Object.values(cartDetails)[0].currency,
@@ -230,6 +230,12 @@ const CartView = ({ classes, phoneMatches }) => {
   );
 };
 
+
+export const useCartCount = () => {
+  const {cartDetails,cartCount} = useShoppingCart()
+  const hasShipping = Object.values(cartDetails).filter(el => el.name === "Shipping")
+  return hasShipping ? cartCount - 1 : cartCount
+}
 export const CartPage = () => {
   let props;
   const phoneMatches = useMediaQuery("(max-width: 580px)");
@@ -239,8 +245,8 @@ export const CartPage = () => {
     props = normalProps;
   }
   const classes = useStyle(props);
-  const { cartDetails } = useShoppingCart({});
-  const realCartCount = Object.values(cartDetails).filter(product => product.name !== "Shipping").length
+  const realCartCount = useCartCount();
+  
   if (realCartCount === 0) {
     return <EmptyCartView classes={classes} />;
   } else {
