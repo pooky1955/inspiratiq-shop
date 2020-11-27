@@ -9,6 +9,7 @@ module.exports = {
     author: `James Liang and Marlene Liang`,
   },
   plugins: [
+    `gatsby-plugin-netlify`,
     {
       resolve: `gatsby-plugin-material-ui`,
       options: {
