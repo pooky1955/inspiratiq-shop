@@ -100,7 +100,7 @@ export const ProductPage = () => {
             <select
 	      id="select-collection"
               value={collection}
-              onBlur={handleChange}
+              onChange={handleChange}
               className={classes.selectMenu}
             >
               <option value="">All Prints</option>
