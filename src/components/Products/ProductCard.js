@@ -81,7 +81,7 @@ const ProductCard = ({ product, displayProduct }) => {
   if (product === null){
     return null
   }
-  if (product.gatsbyImages === null){
+  if (!product.gatsbyImages){
     return null
   }
   const fixedImg = product.gatsbyImages[0].childImageSharp.fluid

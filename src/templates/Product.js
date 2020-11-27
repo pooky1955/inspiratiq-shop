@@ -152,11 +152,11 @@ export const ProductItem = (props) => {
     }, 700);
   };
 
-  const allImages = Object.entries(product.gatsbyImages).filter((
+  const allImages = product.gatsbyImages ? Object.entries(product.gatsbyImages).filter((
     [index, val],
   ) => index !== "0").map(([_, image]) => {
     return image.childImageSharp.fluid;
-  });
+  }) : null;
   return (
     <div>
       <div className={classes.topContainer}>
