@@ -104,7 +104,6 @@ exports.createPages = async ({ graphql, actions, reporter, createNodeId }) => {
 	      metadata {
 		collection
 		additionalDescription
-		shipping
 	      }
 	    }
 	  }
