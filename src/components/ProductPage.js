@@ -79,17 +79,7 @@ export const ProductPage = () => {
   let props
   const desktopMatches = useMediaQuery('(min-width: 700px)')
   const phoneMatches = useMediaQuery('(min-width: 600px')
-
-  if (desktopMatches) {
-    props={
-      flexDirection: "row"
-    }
-  }
-  else {
-    props={
-      flexDirection: "column"
-    }
-  }
+  props = {flexDirection : "row"}
   const classes = useStyle(props)
   const [collection, setCollection] = useState('')
   const handleChange = e => {
@@ -105,9 +95,10 @@ export const ProductPage = () => {
     </div>
       <div className={classes.topContainer}>
         <div className={classes.browse}>
-          {phoneMatches && <div className={classes.browseBy}>Browse by</div>}
+	  {phoneMatches && <div className={classes.browseBy}><label htmlFor="select-collection">Browse by </label></div>}
           <div className={classes.selectContainer}>
             <select
+	      id="select-collection"
               value={collection}
               onBlur={handleChange}
               className={classes.selectMenu}

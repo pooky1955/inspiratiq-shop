@@ -88,7 +88,7 @@ const ProductCard = ({ product, displayProduct }) => {
           <button 
           className={classes.button}
           onClick={() => displayProduct(product)}>
-            <Img fluid={fixedImg} className={classes.image} ></Img>
+            <Img fluid={fixedImg} durationFadeIn={100} className={classes.image} ></Img>
             <div className={classes.productName}>{product.name}</div>
           </button>
           <label>{formatPrice(product.price, product.currency)}</label>

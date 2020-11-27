@@ -95,15 +95,29 @@ const useStyle = makeStyles({
 });
 
 export const ProductCell = ({ product, phoneMatches, classes }) => {
+  if (!product.gatsbyImages){
+    return null
+  }
+  if (!product.gatsbyImages[0]){
+    return null
+  }
   const fluidImage = product.gatsbyImages[0].childImageSharp.fluid;
   console.log(fluidImage);
   return (
-    <td className={classes.imageCell}>
-      <Link to={"/product/" + product.sku} style={{ width: "80%" }}>
+    <td
+      className={classes.imageCell}
+      style={{ height: "100%", paddingRight: "0" }}
+    >
+      <Link
+        to={"/product/" + product.sku}
+        style={{ height: "100%", width: "100%" }}
+      >
         <Img
+          durationFadeIn={100}
           fluid={fluidImage}
-          style={{ width: "100%" }}
-        > //height={phoneMatches ? '60' : '80'}
+          height={phoneMatches ? "60" : "80"}
+          style={{ height: "100%", width: "80%" }}
+        >
         </Img>
       </Link>
     </td>

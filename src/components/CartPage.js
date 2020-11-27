@@ -200,6 +200,9 @@ const CartView = ({ classes, phoneMatches }) => {
     addItem(shippingProduct)
     setItemQuantity(shippingProduct.sku,1);
   },[])
+  if (Object.values(cartDetails).length === 0){
+    return null
+  }
   const subTotalValue = formatPrice(
     totalPrice,
     Object.values(cartDetails)[0].currency,
@@ -220,7 +223,7 @@ const CartView = ({ classes, phoneMatches }) => {
       <h1 className={classes.title}>YOUR CART</h1>
       <div className={classes.cartContainer}>
         <div className={classes.checkoutAndCartImage}>
-          <CartTable products={products}/>
+          <CartTable products={products} phoneMatches={phoneMatches}/>
         </div>
         <Subtotal classes={classes} value={subTotalValue} />
         <CheckoutButton handleCheckout={handleCheckout} classes={classes} />
@@ -239,6 +242,7 @@ export const useCartCount = () => {
 export const CartPage = () => {
   let props;
   const phoneMatches = useMediaQuery("(max-width: 580px)");
+  const {cartDetails} = useShoppingCart()
   if (phoneMatches) {
     props = phoneProps;
   } else {
@@ -247,7 +251,7 @@ export const CartPage = () => {
   const classes = useStyle(props);
   const realCartCount = useCartCount();
   
-  if (realCartCount === 0) {
+  if (realCartCount === 0 || cartDetails.length === 0) {
     return <EmptyCartView classes={classes} />;
   } else {
     return <CartView classes={classes} phoneMatches={phoneMatches} />;

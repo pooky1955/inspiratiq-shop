@@ -5,8 +5,8 @@ require('dotenv').config({
 module.exports = {
   siteMetadata: {
     title: `INSPIRATIQ`,
-    description: `Accept payments in your Gatsby site using Stripe Checkout.`,
-    author: `@thorwebdev`,
+    description: `Shop art prints by @inspiratiq`,
+    author: `James Liang and Marlene Liang`,
   },
   plugins: [
     {
@@ -42,20 +42,27 @@ module.exports = {
     },
     `gatsby-transformer-remark`,
     `gatsby-transformer-sharp`,
-    `gatsby-plugin-sharp`,
-    //   resolve: `gatsby-plugin-manifest`,
-    //   options: {
-    //     name: `gatsby-starter-default`,
-    //     short_name: `starter`,
-    //     start_url: `/`,
-    //     background_color: `#663399`,
-    //     theme_color: `#663399`,
-    //     display: `minimal-ui`,
-    //     icon: `src/images/queenicon.png`, // This path is relative to the root of the site.
-    //   },
-    // },
+    {
+      resolve : `gatsby-plugin-sharp`,
+      options : {
+	base64Width : 25,
+      }
+    },
+    {
+       resolve: `gatsby-plugin-manifest`,
+       options: {
+	 name: `Inspiratiq Shop`,
+	 short_name: `Inspiratiq`,
+	 start_url: `/`,
+	 background_color: `#663399`,
+	 theme_color: `#663399`,
+	 display: `minimal-ui`,
+	 icon: `src/images/queenicon.png`, // This path is relative to the root of the site.
+       },
+     },
     // this (optional) plugin enables Progressive Web App + Offline functionality
     // To learn more, visit: https://gatsby.app/offline
-    // 'gatsby-plugin-offline',
+    `gatsby-plugin-preact`,
+     //'gatsby-plugin-offline',
   ],
 }

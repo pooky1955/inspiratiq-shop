@@ -43,8 +43,8 @@ export const productsQuery = graphql`
 	  dir
 	  publicURL
 	  childImageSharp {
-	    fluid(maxWidth : 1000) {
-	      ...GatsbyImageSharpFluid
+	    fluid(maxWidth : 600) {
+	      ...GatsbyImageSharpFluid_withWebp_tracedSVG
 	    }
 	    id
 	  }

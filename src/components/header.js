@@ -22,6 +22,7 @@ const useStyle = makeStyles({
     flexDirection: 'column',
     alignItems: 'center',
     justifyContent: 'center',
+    marginTop : "1rem"
   },
   title: {
     textDecoration: `none`,
@@ -29,6 +30,7 @@ const useStyle = makeStyles({
     fontFamily: "inspiratiq",
     fontSize: "3.5rem",
     fontWeight: "bold",
+    marginBottom : "0.5rem",
   },
   linkStyle: {
     color: '#FFA634',
@@ -69,21 +71,12 @@ const useStyle = makeStyles({
 
 const imagesQuery = graphql`
   query HeadersQuery {
-    cloudImage : file(relativePath : {eq :"cloud.png"}) {
-      id
-      name
-      childImageSharp {
-	fluid(maxWidth : 500) {
-	  ...GatsbyImageSharpFluid
-	}
-      }
-    }
     personImage : file(relativePath : {eq : "logo.png"}) {
       id
       name
       childImageSharp {
 	fixed(width : 200,height : 200){
-	  ...GatsbyImageSharpFixed
+	  ...GatsbyImageSharpFixed_withWebp
 	}
       }
     }
@@ -91,10 +84,10 @@ const imagesQuery = graphql`
 `
 const Header = ({ siteTitle }) => {
   let props
-  const phoneMatches = useMediaQuery('(min-width: 800px)')
+  //const phoneMatches = useMediaQuery('(min-width: 800px)')
+  const phoneMatches = true
   const data = useStaticQuery(imagesQuery)
   //alert(JSON.stringify(data))
-  const fluidCloud = data.cloudImage.childImageSharp.fluid
   const fluidLogo = data.personImage.childImageSharp.fixed
   if (phoneMatches){
     props = {
@@ -112,21 +105,13 @@ const Header = ({ siteTitle }) => {
   return (
     <div className={classes.container}>
       
-      <Img className={classes.icon} fixed={fluidLogo} alt="logo" height="220px"></Img>
+      <Img className={classes.icon} durationFadeIn={100} fixed={fluidLogo} alt="logo" height="220px"></Img>
       <div className={classes.titleContainer}>
         <div className={classes.inspiratiq}>
-          {phoneMatches && <div>
-            <Img fluid={fluidCloud} className={classes.leftCloud} height="100" />
-          </div>}
           <div className={classes.title}>
             {' '}
               <Link to="/" className={classes.linkStyle}>{siteTitle}</Link>
           </div>
-          {phoneMatches &&
-            <div>
-            <Img fluid={fluidCloud} className={classes.rightCloud} height="100" />
-          </div>
-          }
         </div>
         <div className={classes.navBar}>
           <NavBar />

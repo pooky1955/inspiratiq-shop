@@ -118,12 +118,14 @@ exports.createPages = async ({ graphql, actions, reporter, createNodeId }) => {
 	    dir
 	    publicURL
 	    childImageSharp {
-	      fluid(maxWidth : 1000) {
-		base64
+	      fluid(maxWidth : 600) {
 		aspectRatio
 		src
 		srcSet
+		srcWebp
+		srcSetWebp
 		sizes
+		tracedSVG
 	    }
 	  }
 	}

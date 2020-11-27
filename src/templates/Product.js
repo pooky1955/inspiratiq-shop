@@ -173,7 +173,7 @@ export const ProductItem = (props) => {
         <div className={classes.leftSide}>
           <div className={classes.itemContainer}>
             <div className={classes.imageContainer}>
-	      <Img fluid={fluidImg}  style={{width : "90%",margin : "auto"}}/>
+	      <Img fluid={fluidImg} durationFadeIn={100} style={{width : "90%",margin : "auto"}}/>
             </div>
           </div>
         </div>
@@ -198,7 +198,7 @@ export const ProductItem = (props) => {
       </div>
       <div className={classes.gallery}>
         {allImages.map((fluid) =>
-          <Img fluid={fluid} style={{ width: "100%" }} />
+          <Img fluid={fluid} durationFadeIn={100} style={{ width: "100%" }} />
         )}
       </div>
     </div>
