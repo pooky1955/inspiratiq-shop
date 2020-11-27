@@ -77,6 +77,13 @@ export const formatPrice = (amount, currency) => {
 
 const ProductCard = ({ product, displayProduct }) => {
   const classes = useStyles()
+  console.log(product)
+  if (product === null){
+    return null
+  }
+  if (product.gatsbyImages === null){
+    return null
+  }
   const fixedImg = product.gatsbyImages[0].childImageSharp.fluid
   //alert(JSON.stringify(Object.keys(fixedImg)))
 
