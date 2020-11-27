@@ -236,7 +236,7 @@ const CartView = ({ classes, phoneMatches }) => {
 
 export const useCartCount = () => {
   const {cartDetails,cartCount} = useShoppingCart()
-  const hasShipping = Object.values(cartDetails).filter(el => el.name === "Shipping")
+  const hasShipping = Object.values(cartDetails).filter(el => el.name === "Shipping").length >= 1
   return hasShipping ? cartCount - 1 : cartCount
 }
 export const CartPage = () => {
@@ -250,8 +250,7 @@ export const CartPage = () => {
   }
   const classes = useStyle(props);
   const realCartCount = useCartCount();
-  
-  if (realCartCount === 0 || cartDetails.length === 0) {
+  if (realCartCount <= 0) {
     return <EmptyCartView classes={classes} />;
   } else {
     return <CartView classes={classes} phoneMatches={phoneMatches} />;

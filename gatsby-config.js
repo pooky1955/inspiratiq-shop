@@ -45,7 +45,7 @@ module.exports = {
     {
       resolve : `gatsby-plugin-sharp`,
       options : {
-	base64Width : 25,
+	base64Width : 20,
       }
     },
     {
@@ -63,6 +63,6 @@ module.exports = {
     // this (optional) plugin enables Progressive Web App + Offline functionality
     // To learn more, visit: https://gatsby.app/offline
     `gatsby-plugin-preact`,
-     //'gatsby-plugin-offline',
+     'gatsby-plugin-offline',
   ],
 }

@@ -12,7 +12,7 @@ import { Link } from "gatsby";
 const useStyle = makeStyles({
   item: {
     display: "flex",
-    flexDirection: "row",
+    flexDirection: "column",
     alignItems: "center",
     justifyContent: "space-evenly",
     margin: "1rem",

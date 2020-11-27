@@ -76,7 +76,7 @@ const imagesQuery = graphql`
       name
       childImageSharp {
 	fixed(width : 200,height : 200){
-	  ...GatsbyImageSharpFixed_withWebp
+	  ...GatsbyImageSharpFixed_withWebp_tracedSVG
 	}
       }
     }
@@ -105,7 +105,7 @@ const Header = ({ siteTitle }) => {
   return (
     <div className={classes.container}>
       
-      <Img className={classes.icon} durationFadeIn={100} fixed={fluidLogo} alt="logo" height="220px"></Img>
+      <Img className={classes.icon} durationFadeIn={0}  fixed={fluidLogo} alt="" height="220px"></Img>
       <div className={classes.titleContainer}>
         <div className={classes.inspiratiq}>
           <div className={classes.title}>
