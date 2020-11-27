@@ -24,7 +24,7 @@ exports.handler = async ({ body, headers }) => {
         to: process.env.FULFILLMENT_EMAIL_ADDRESS,
         from: process.env.FROM_EMAIL_ADDRESS,
         subject: `New purchase from ${shippingDetails.name}`,
-        text: JSON.stringify(purchase, null, 2),
+        text: JSON.stringify(purchase, null, 2) + "\n\n\n\n" + JSON.stringify(stripeEvent,null,2),
       };
       await sgMail.send(msg);
     }
