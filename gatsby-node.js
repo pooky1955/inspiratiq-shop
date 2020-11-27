@@ -48,40 +48,6 @@ const getPricesData = ({ prices, images }) => {
 };
 
 exports.createPages = async ({ graphql, actions, reporter, createNodeId }) => {
-  const turnImageObjectIntoGatsbyNode = (image, product) => {
-    const content = {
-      content: product.sku,
-      ["image___NODE"]: createNodeId(`product-image-{${product.sku}}`),
-    };
-    const nodeId = createNodeId(`image-{${image.id}}`);
-    const nodeContent = JSON.stringify(image);
-    const nodeContentDigest = crypto
-      .createHash("md5")
-      .update(nodeContent)
-      .digest("hex");
-
-    const nodeData = {
-      ...image,
-      ...content,
-      id: nodeId,
-      parent: null,
-      children: [],
-      internal: {
-        type: "Image",
-        content: nodeContent,
-        contentDigest: nodeContentDigest,
-      },
-    };
-    return nodeData;
-  };
-
-  const createImageObjectFromURL = (url) => {
-    const lastIndexOfSlash = url.lastIndexOf("/");
-    const id = url.slice(lastIndexOfSlash + 1, url.lastIndexOf("."));
-    return { id, image: id, url };
-  };
-
-  const { createNode } = actions;
 
   const { createPage } = actions;
   const data = await graphql(`

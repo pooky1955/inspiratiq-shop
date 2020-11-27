@@ -156,7 +156,7 @@ export const ProductItem = (props) => {
     [index, val],
   ) => index !== "0").map(([_, image]) => {
     return image.childImageSharp.fluid;
-  }) : null;
+  }) : [];
   return (
     <div>
       <div className={classes.topContainer}>
