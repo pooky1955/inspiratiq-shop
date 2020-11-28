@@ -211,7 +211,9 @@ const CartView = ({ classes, phoneMatches }) => {
   const handleCheckout = () => {
     addItem(shippingProduct)
     setItemQuantity(shippingProduct.sku,1);
-    redirectToCheckout()
+    redirectToCheckout({
+      shippingAddressCollection : true
+    })
   };
 
   const products = Object.values(cartDetails).filter(product => product.name !== "Shipping")

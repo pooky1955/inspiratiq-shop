@@ -37,7 +37,7 @@ const renderMethod = ({children}) => (data) => {
           mode="client-only"
           // allowedCountries={["US", "GB", "CA"]}
           billingAddressCollection={true}
-	  shippingAddressCollectoin={true}
+	  shippingAddressCollection={true}
         >
           <Header siteTitle={data.site.siteMetadata.title} />
           <div
