@@ -14,12 +14,16 @@ const windowExists = typeof window !== `undefined`;
 
 
 const CartVerifier = () => {
-  const {cartDetails,removeItem} = useShoppingCart()
-  Object.values(cartDetails).forEach((product)=>{
-    if (product.name !== "Shipping" && product.gatsbyImages === undefined){
-      removeItem(product.sku)
+  const {clearCart,cartDetails} = useShoppingCart()
+  const undefinedCount = 0
+  for (let product of Object.values(cartDetails)){
+    if (product.name !== "Shipping" && !product.gatsbyImages && product.image){
+      undefinedCount += 1
     }
-  })
+  }
+  if (undefinedCount >= 1){
+    clearCart()
+  }
   return null
 }
 
@@ -33,12 +37,14 @@ const renderMethod = ({children}) => (data) => {
           mode="client-only"
           // allowedCountries={["US", "GB", "CA"]}
           billingAddressCollection={true}
+	  shippingAddressCollectoin={true}
         >
           <Header siteTitle={data.site.siteMetadata.title} />
           <div
             style={{
               margin: `0 auto`,
               maxWidth: 960,
+	      minWidth : 300,
               padding: `0px 1.0875rem 1.45rem`,
               paddingTop: 0,
             }}

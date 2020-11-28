@@ -27,7 +27,7 @@ const useStyle = makeStyles({
   title: {
     textDecoration: `none`,
     zIndex: '1',
-    fontFamily: "inspiratiq",
+    fontFamily: "inspiratiq, monospace",
     fontSize: "3.5rem",
     fontWeight: "bold",
     marginBottom : "0.5rem",

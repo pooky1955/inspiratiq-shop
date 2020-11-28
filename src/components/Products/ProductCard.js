@@ -42,7 +42,7 @@ const useStyles = makeStyles({
     },
   },
   productName: {
-    fontFamily: 'Fira Code',
+    fontFamily: '"Fira Code", monospace',
     textTransform: 'uppercase',
     fontSize: '1.3rem',
     fontWeight: '600',
@@ -77,7 +77,7 @@ export const formatPrice = (amount, currency) => {
 
 const ProductCard = ({ product, displayProduct }) => {
   const classes = useStyles()
-  console.log(product)
+  //console.log(product)
   if (product === null){
     return null
   }

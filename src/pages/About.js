@@ -16,7 +16,7 @@ const useStyle = makeStyles({
   },
   subtitle: {
     color: '#FC9C74',
-    fontFamily: 'Inspiratiq',
+    fontFamily: 'Inspiratiq, monospace',
   },
   self: props => ({
     display: 'flex',

@@ -88,9 +88,6 @@ const useStyle = makeStyles({
     },
   },
   imageCell: {
-    display: "flex",
-    flexDirection: "column",
-    alignItems: "center",
   },
 });
 
@@ -102,7 +99,7 @@ export const ProductCell = ({ product, phoneMatches, classes }) => {
     return null
   }
   const fluidImage = product.gatsbyImages[0].childImageSharp.fluid;
-  console.log(fluidImage);
+  //console.log(fluidImage);
   return (
     <td
       className={classes.imageCell}

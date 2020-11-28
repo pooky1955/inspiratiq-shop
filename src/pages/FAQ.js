@@ -16,7 +16,7 @@ const useStyle = makeStyles(theme => {
       // color: theme.palette.secondary.main
     },
     category: {
-      fontFamily: 'Inspiratiq',
+      fontFamily: 'Inspiratiq, monospace',
       fontSize: '2.5rem',
     },
     question: {

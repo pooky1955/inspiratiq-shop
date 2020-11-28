@@ -184,7 +184,6 @@ const CartView = ({ classes, phoneMatches }) => {
     totalPrice,
     setItemQuantity,
     addItem,
-    removeItem,
     redirectToCheckout,
   } = useShoppingCart();
   const shippingData = useStaticQuery(shippingQuery);
@@ -210,7 +209,6 @@ const CartView = ({ classes, phoneMatches }) => {
   //addItem(shippingSku)
 
   const handleCheckout = () => {
-    removeItem(shippingProduct.sku)
     addItem(shippingProduct)
     setItemQuantity(shippingProduct.sku,1);
     redirectToCheckout()
