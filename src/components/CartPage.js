@@ -1,4 +1,5 @@
 import React, { useEffect} from "react";
+import codes from "./codes"
 import { makeStyles } from "@material-ui/core/styles";
 import SadCart from "../images/SadCart.png";
 import { useShoppingCart } from "use-shopping-cart";
@@ -212,7 +213,7 @@ const CartView = ({ classes, phoneMatches }) => {
     addItem(shippingProduct)
     setItemQuantity(shippingProduct.sku,1);
     redirectToCheckout({
-      shippingAddressCollection : true
+      shippingAddressCollection : codes
     })
   };
 
