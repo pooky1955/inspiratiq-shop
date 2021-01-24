@@ -149,7 +149,6 @@ export const ProductNumberSwitcher = ({ phoneMatches, product, props }) => {
 
   return (
     <>
-      {console.log(product.sku)}
       <td>
         <div className={classes.quantityContainer}>
           <div className={classes.quantityAndArrows}>

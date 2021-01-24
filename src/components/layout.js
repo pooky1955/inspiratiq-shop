@@ -34,10 +34,9 @@ const renderMethod = ({children}) => (data) => {
           successUrl={`${windowExists ? window.location.origin : ""}/Success`}
           cancelUrl={`${windowExists ? window.location.origin : ""}/`}
           currency="CAD"
-          mode="client-only"
+          mode="checkout-session"
           // allowedCountries={["US", "GB", "CA"]}
           billingAddressCollection={true}
-	  shippingAddressCollection={true}
         >
           <Header siteTitle={data.site.siteMetadata.title} />
           <div

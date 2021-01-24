@@ -78,6 +78,7 @@ export const formatPrice = (amount, currency) => {
 const ProductCard = ({ product, displayProduct }) => {
   const classes = useStyles()
   //console.log(product)
+  //console.log(product)
   if (product === null){
     return null
   }

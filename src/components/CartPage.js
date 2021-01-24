@@ -1,5 +1,6 @@
-import React, { useEffect} from "react";
-import codes from "./codes"
+import React, { useEffect } from "react";
+import codes from "./codes";
+import Notes from "./Notes"
 import { makeStyles } from "@material-ui/core/styles";
 import SadCart from "../images/SadCart.png";
 import { useShoppingCart } from "use-shopping-cart";
@@ -173,12 +174,28 @@ export const FloatingCartIcon = ({ phoneMatches, classes }) => {
   return (
     <div className={classes.cartAndShadow}>
       <div className={classes.happyCart}>
-        <img src={HappyCart} alt="happy cart" height={phoneMatches ? "170" : "200"} />
+        <img
+          src={HappyCart}
+          alt="happy cart"
+          height={phoneMatches ? "170" : "200"}
+        />
       </div>
-      <img src={SadCartShadow} width={phoneMatches ? "153" : "180"} alt="happy cart shadow" />
+      <img
+        src={SadCartShadow}
+        width={phoneMatches ? "153" : "180"}
+        alt="happy cart shadow"
+      />
     </div>
   );
 };
+
+function parseItems(cartDetails){
+  return Object.values(cartDetails).map(product => {
+    const {sku,quantity} = product
+    return {price : sku,quantity}
+  })
+}
+
 const CartView = ({ classes, phoneMatches }) => {
   const {
     cartDetails,
@@ -192,16 +209,16 @@ const CartView = ({ classes, phoneMatches }) => {
   const shippingPrice = shippingData.stripePrice;
   const shippingProduct = {
     sku: shippingPrice.id,
-    name : shippingPrice.product.name,
-    price : shippingPrice.unit_amount,
+    name: shippingPrice.product.name,
+    price: shippingPrice.unit_amount,
     currency: shippingPrice.currency,
   };
-  useEffect(()=>{
-    addItem(shippingProduct)
-    setItemQuantity(shippingProduct.sku,1);
-  },[])
-  if (Object.values(cartDetails).length === 0){
-    return null
+  useEffect(() => {
+    addItem(shippingProduct);
+    setItemQuantity(shippingProduct.sku, 1);
+  }, []);
+  if (Object.values(cartDetails).length === 0) {
+    return null;
   }
   const subTotalValue = formatPrice(
     totalPrice,
@@ -209,41 +226,52 @@ const CartView = ({ classes, phoneMatches }) => {
   );
   //addItem(shippingSku)
 
-  const handleCheckout = () => {
-    addItem(shippingProduct)
-    setItemQuantity(shippingProduct.sku,1);
+  const handleCheckout = async () => {
+    addItem(shippingProduct);
+    setItemQuantity(shippingProduct.sku, 1);
+    const response = await fetch("/.netlify/functions/create-checkout", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(parseItems(cartDetails)),
+    }).then((res) => res.json());
     redirectToCheckout({
-      shippingAddressCollection : codes
-    })
+      sessionId: response.sessionId,
+    });
   };
 
-  const products = Object.values(cartDetails).filter(product => product.name !== "Shipping")
+  const products = Object.values(cartDetails).filter((product) =>
+    product.name !== "Shipping"
+  );
 
   return (
     <div className={classes.cartContainer}>
       <h1 className={classes.title}>YOUR CART</h1>
       <div className={classes.cartContainer}>
         <div className={classes.checkoutAndCartImage}>
-          <CartTable products={products} phoneMatches={phoneMatches}/>
+          <CartTable products={products} phoneMatches={phoneMatches} />
         </div>
         <Subtotal classes={classes} value={subTotalValue} />
         <CheckoutButton handleCheckout={handleCheckout} classes={classes} />
         <FloatingCartIcon classes={classes} phoneMatches={phoneMatches} />
       </div>
+      <Notes/>
     </div>
   );
 };
 
-
 export const useCartCount = () => {
-  const {cartDetails,cartCount} = useShoppingCart()
-  const hasShipping = Object.values(cartDetails).filter(el => el.name === "Shipping").length >= 1
-  return hasShipping ? cartCount - 1 : cartCount
-}
+  const { cartDetails, cartCount } = useShoppingCart();
+  const hasShipping =
+    Object.values(cartDetails).filter((el) => el.name === "Shipping").length >=
+      1;
+  return hasShipping ? cartCount - 1 : cartCount;
+};
 export const CartPage = () => {
   let props;
   const phoneMatches = useMediaQuery("(max-width: 580px)");
-  const {cartDetails} = useShoppingCart()
+  const { cartDetails } = useShoppingCart();
   if (phoneMatches) {
     props = phoneProps;
   } else {

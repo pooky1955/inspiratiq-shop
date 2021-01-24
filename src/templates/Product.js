@@ -21,7 +21,7 @@ const useStyle = makeStyles({
     color: "#F88A17",
     marginBottom: "1rem",
   },
-  itemDescription:  {
+  itemDescription: {
     display: "flex",
     flexDirection: "column",
     //marginLeft: "2rem",
@@ -100,26 +100,25 @@ const useStyle = makeStyles({
     padding: "1rem 0rem 1rem 0rem",
     gridGap: "20px",
   },
-  mainContainer: styleProps => ({
+  mainContainer: (styleProps) => ({
     display: "flex",
     flexDirection: styleProps.flexDirection,
-    alignItems : "center"
+    alignItems: "center",
   }),
   leftSide: {},
-  rightSide: styleProps => ({
+  rightSide: (styleProps) => ({
     marginLeft: styleProps.phoneMatches ? "auto" : "2rem",
   }),
   cartContainer: {
     //width: "50%",
     minWidth: "100px",
-    maxWidth : "250px"
+    maxWidth: "250px",
   },
-  topContainer : {
-    display : "flex",
-    justifyContent : "space-between",
-    marginBottom : "1rem"
-
-  }
+  topContainer: {
+    display: "flex",
+    justifyContent: "space-between",
+    marginBottom: "1rem",
+  },
 });
 
 export const ProductItem = (props) => {
@@ -131,19 +130,28 @@ export const ProductItem = (props) => {
     styleProps = {
       flexDirection: "column",
       alignItems: "center",
-      phoneMatches
+      phoneMatches,
     };
   } else {
     styleProps = {
       flexDirection: "row",
       alignItems: "flex-start",
-      phoneMatches
+      phoneMatches,
     };
   }
   const classes = useStyle(styleProps);
   const { product } = props;
   const { addItem } = useShoppingCart();
-  const fluidImg = product.gatsbyImages[0].childImageSharp.fluid;
+  debugger
+  if (product.gatsbyImages === undefined){
+    //debugger
+    console.warn("it's undefined" + product.name)
+    console.log(product)
+  }
+  let fluidImg;
+  if (product.gatsbyImages[0]) {
+    fluidImg = product.gatsbyImages[0].childImageSharp.fluid;
+  }
   const handleClick = () => {
     addItem(product, 1);
     setIsAdded(true);
@@ -152,11 +160,13 @@ export const ProductItem = (props) => {
     }, 700);
   };
 
-  const allImages = product.gatsbyImages ? Object.entries(product.gatsbyImages).filter((
-    [index, val],
-  ) => index !== "0").map(([_, image]) => {
-    return image.childImageSharp.fluid;
-  }) : [];
+  const allImages = product.gatsbyImages
+    ? Object.entries(product.gatsbyImages).filter((
+      [index, val],
+    ) => index !== "0").map(([_, image]) => {
+      return image.childImageSharp.fluid;
+    })
+    : [];
   return (
     <div>
       <div className={classes.topContainer}>
@@ -173,7 +183,11 @@ export const ProductItem = (props) => {
         <div className={classes.leftSide}>
           <div className={classes.itemContainer}>
             <div className={classes.imageContainer}>
-	      <Img fluid={fluidImg}  durationFadeIn={100} style={{width : "90%",margin : "auto"}}/>
+              <Img
+                fluid={fluidImg}
+                durationFadeIn={100}
+                style={{ width: "90%", margin: "auto" }}
+              />
             </div>
           </div>
         </div>
@@ -198,7 +212,7 @@ export const ProductItem = (props) => {
       </div>
       <div className={classes.gallery}>
         {allImages.map((fluid) =>
-          <Img fluid={fluid} durationFadeIn={100}  style={{ width: "100%" }} />
+          <Img fluid={fluid} durationFadeIn={100} style={{ width: "100%" }} />
         )}
       </div>
     </div>
