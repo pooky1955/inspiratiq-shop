@@ -1,7 +1,5 @@
 const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
 
-const sgMail = require('@sendgrid/mail');
-sgMail.setApiKey(process.env.SENDGRID_API_KEY);
 
 exports.handler = async ({ body, headers }) => {
   try {
@@ -20,13 +18,12 @@ exports.handler = async ({ body, headers }) => {
 
       // Send and email to our fulfillment provider using Sendgrid.
       const purchase = { items, shippingDetails };
-      const msg = {
-        to: process.env.FULFILLMENT_EMAIL_ADDRESS,
-        from: process.env.FROM_EMAIL_ADDRESS,
-        subject: `New purchase from ${shippingDetails.name}`,
-        text: JSON.stringify(purchase, null, 2) + "\n\n\n\n" + JSON.stringify(stripeEvent,null,2),
-      };
-      await sgMail.send(msg);
+      const webhookURL = process.env.DISCORD_WEBHOOK
+      const data = {content : "```json\n" + JSON.stringify(purchase,"",2) + "\n```"}
+      fetch(webhookURL,{
+        method : 'POST',
+        body : JSON.stringify(data)
+      })
     }
 
     return {

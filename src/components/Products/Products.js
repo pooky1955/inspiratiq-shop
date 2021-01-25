@@ -75,23 +75,31 @@ const getDirName = (dir) => {
   return splitted[splitted.length - 1];
 };
 
-const addToDict = (myDict, dirName, index, image) => {
-  if (!myDict[dirName]) {
-    myDict[dirName] = {};
+const addToDict = (myDict, imageKeyName, index, image) => {
+  if (!myDict[imageKeyName]) {
+    myDict[imageKeyName] = {};
   }
-  myDict[dirName][index] = image;
+  myDict[imageKeyName][index] = image;
 };
-
+const parseName = (name) => {
+  const patt = /[^a-zA-Z]/g
+  return name.replace(patt,"").toLowerCase()
+}
 const getPricesData = ({ prices, images }) => {
   let myDict = {};
   images.edges.forEach(({ node: image }) => {
     const dirName = getDirName(image.dir);
+    const imageName = parseName(dirName.split("-")[0])
     const index = parseInt(image.name);
-    //console.log({ dirName, index });
-    addToDict(myDict, dirName, index, image);
+    addToDict(myDict, imageName, index, image);
   });
   const pricesData = prices.edges.map(({ node: price }) => {
-    const images = myDict[price.id];
+    const imageName = parseName(price.product.name)
+    const images = myDict[imageName];
+    //console.table(Object.entries((myDict)))
+    if (images != undefined){
+      //alert(`Image name : ${imageName}`)
+    }
     const data = {
       sku: price.id,
       name: price.product.name,
@@ -103,11 +111,8 @@ const getPricesData = ({ prices, images }) => {
     };
     return data;
   });
-  // console.log(pricesData)
   return pricesData;
-  //alert("finished proocessing")
 };
-
 
 function usePricesData(){
   const data = useStaticQuery(productsQuery);
