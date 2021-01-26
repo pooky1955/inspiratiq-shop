@@ -1,1 +1,13 @@
-const codes = ["ZWE ", "ZMB ", "ZAF ", "MYT ", "YEM ", "WSM ", "WLF ", "VUT ", "VNM ", "VIR ", "VGB ", "VEN ", "VCT ", "VAT ", "UZB ", "URY ", "USA ", "UMI ", "UGA ", "UKR ", "TZA ", "TWN ", "TUV ", "TTO ", "TUR ", "TON ", "TUN ", "TKM ", "TLS ", "TKL ", "TJK ", "THA ", "TGO ", "ATF ", "TCD ", "TCA ", "SWZ ", "SYR ", "SXM ", "SLV ", "STP ", "SSD ", "SUR ", "SOM ", "SEN ", "SMR ", "SLE ", "SVK ", "SJM ", "SVN ", "SHN ", "SGP ", "SWE ", "SDN ", "SYC ", "SLB ", "SAU ", "RWA ", "RUS ", "SRB ", "ROU ", "REU ", "QAT ", "PRY ", "PLW ", "PRT ", "PSE ", "PRI ", "PCN ", "SPM ", "POL ", "PAK ", "PHL ", "PNG ", "PYF ", "PER ", "PAN ", "OMN ", "NZL ", "NIU ", "NRU ", "NPL ", "NOR ", "NLD ", "NIC ", "NGA ", "NFK ", "NER ", "NCL ", "NAM ", "MOZ ", "MYS ", "MEX ", "MWI ", "MDV ", "MUS ", "MLT ", "MSR ", "MRT ", "MTQ ", "MNP ", "MAC ", "MNG ", "MMR ", "MLI ", "MKD ", "MHL ", "MDG ", "MAF ", "MNE ", "MDA ", "MCO ", "MAR ", "LBY ", "LVA ", "LUX ", "LTU ", "LSO ", "LBR ", "LKA ", "LIE ", "LCA ", "LBN ", "LAO ", "KAZ ", "CYM ", "KWT ", "KOR ", "PRK ", "KNA ", "COM ", "KIR ", "KHM ", "KGZ ", "KEN ", "JPN ", "JOR ", "JAM ", "JEY ", "ITA ", "ISL ", "IRN ", "IRQ ", "IOT ", "IND ", "IMN ", "ISR ", "IRL ", "IDN ", "HUN ", "HTI ", "HRV ", "HND ", "HMD ", "HKG ", "GUY ", "GNB ", "GUM ", "GTM ", "SGS ", "GRC ", "GNQ ", "GLP ", "GIN ", "GMB ", "GRL ", "GIB ", "GHA ", "GGY ", "GUF ", "GEO ", "GRD ", "GBR ", "GAB ", "FRA ", "FRO ", "FSM ", "FLK ", "FJI ", "FIN ", "ETH ", "ESP ", "ERI ", "ESH ", "EGY ", "EST ", "ECU ", "DZA ", "DOM ", "DMA ", "DNK ", "DJI ", "DEU ", "CZE ", "CYP ", "CXR ", "CUW ", "CPV ", "CUB ", "CRI ", "COL ", "CHN ", "CMR ", "CHL ", "COK ", "CIV ", "CHE ", "COG ", "CAF ", "COD ", "CCK ", "CAN ", "BLZ ", "BLR ", "BWA ", "BVT ", "BTN ", "BHS ", "BRA ", "BES ", "BOL ", "BRN ", "BMU ", "BLM ", "BEN ", "BDI ", "BHR ", "BGR ", "BFA ", "BEL ", "BGD ", "BRB ", "BIH ", "AZE ", "ALA ", "ABW ", "AUS ", "AUT ", "ASM ", "ARG ", "ATA ", "AGO ", "ARM ", "ALB ", "AIA ", "ATG ", "AFG ", "ARE ", "AND "]
+AC, AD, AE, AF, AG, AI, AL, AM, AO, AQ, AR, AT, AU, AW, AX, AZ, BA, B
+B, BD, BE, BF, BG, BH, BI, BJ, BL, BM, BN, BO, BQ, BR, BS, BT, BV, BW, BY, BZ, CA, CD
+, CF, CG, CH, CI, CK, CL, CM, CN, CO, CR, CV, CW, CY, CZ, DE, DJ, DK, DM, DO, DZ, EC,
+ EE, EG, EH, ER, ES, ET, FI, FJ, FK, FO, FR, GA, GB, GD, GE, GF, GG, GH, GI, GL, GM,
+GN, GP, GQ, GR, GS, GT, GU, GW, GY, HK, HN, HR, HT, HU, ID, IE, IL, IM, IN, IO, IQ, I
+S, IT, JE, JM, JO, JP, KE, KG, KH, KI, KM, KN, KR, KW, KY, KZ, LA, LB, LC, LI, LK, LR
+, LS, LT, LU, LV, LY, MA, MC, MD, ME, MF, MG, MK, ML, MM, MN, MO, MQ, MR, MS, MT, MU,
+ MV, MW, MX, MY, MZ, NA, NC, NE, NG, NI, NL, NO, NP, NR, NU, NZ, OM, PA, PE, PF, PG,
+PH, PK, PL, PM, PN, PR, PS, PT, PY, QA, RE, RO, RS, RU, RW, SA, SB, SC, SE, SG, SH, S
+I, SJ, SK, SL, SM, SN, SO, SR, SS, ST, SV, SX, SZ, TA, TC, TD, TF, TG, TH, TJ, TK, TL
+, TM, TN, TO, TR, TT, TV, TW, TZ, UA, UG, US, UY, UZ, VA, VC, VE, VG, VN, VU, WF, WS,
+ XK, YE, YT, ZA, ZM, ZW, ZZ
+
