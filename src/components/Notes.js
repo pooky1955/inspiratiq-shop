@@ -19,6 +19,9 @@ const useStyle = makeStyles({
     alignItems: "center",
     flexDirection: props.flexDirection,
   }),
+  container : {
+    width : "100%"
+  },
   titleBox: (props) => ({
     display: "flex",
     // flexDirection: 'row',
@@ -71,24 +74,24 @@ const useStyle = makeStyles({
 
   }
 });
-const Notes = () => {
+const Notes = ({handleSubmit}) => {
   let props;
   const classes = useStyle(props);
+
   return (
-    <div>
-        <h1 className={classes.titleName}>ANY NOTES?</h1>
+    <div className={classes.container}>
+      <form onSubmit={handleSubmit} id="notes-form">
         <h2 className={classes.subtitle}>
-          Before you checkout, do you have any additional details you want to
-          provide?
+          Additional Notes
         </h2>
         <div className={classes.column}>
           <div className={classes.email}>
-            <label htmlFor="customer-email-input">Email :{" "}</label>
-            <input type="text" id="customer-email-input" />
+            <label htmlFor="customer-email-input">Your Email :{" "}</label>
+            <input type="text" id="customer-email-input" name="customer-email-input"/>
           </div>
-          <textarea placeholder="Enter your notes" className={classes.textArea}></textarea>
-          <button className={classes.button}>Continue</button>
+          <textarea placeholder="Enter your note" id="customer-text" name="customer-text" className={classes.textArea}></textarea>
         </div>
+      </form>
     </div>
   );
 };

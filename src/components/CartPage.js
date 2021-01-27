@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import codes from "./codes";
 import Notes from "./Notes"
 import { makeStyles } from "@material-ui/core/styles";
@@ -45,6 +45,8 @@ const useStyle = makeStyles({
   },
   cartContainer: {
     // maxWidth: '70%',
+    width : "85%",
+    margin : "auto",
     display: "flex",
     flexDirection: "column",
     alignItems: "center",
@@ -79,6 +81,7 @@ const useStyle = makeStyles({
   },
   checkoutAndCartImage: {
     display: "flex",
+    width : "100%",
     flexDirection: "row",
     alignItems: "center",
   },
@@ -88,6 +91,9 @@ const useStyle = makeStyles({
     transform: "translate(90%)",
     marginTop: "1rem",
   },
+  allContainer : {
+    width : "80%"
+  }
 });
 
 export const shippingQuery = graphql`
@@ -205,6 +211,7 @@ const CartView = ({ classes, phoneMatches }) => {
     redirectToCheckout,
   } = useShoppingCart();
   const shippingData = useStaticQuery(shippingQuery);
+  const [checkingOut,setCheckingOut] = useState(false)
   //alert(JSON.stringify(shippingData))
   const shippingPrice = shippingData.stripePrice;
   const shippingProduct = {
@@ -227,6 +234,8 @@ const CartView = ({ classes, phoneMatches }) => {
   //addItem(shippingSku)
 
   const handleCheckout = async () => {
+    setCheckingOut(true)
+    handleSendNotes()
     addItem(shippingProduct);
     setItemQuantity(shippingProduct.sku, 1);
     const response = await fetch("/.netlify/functions/create-checkout", {
@@ -241,6 +250,24 @@ const CartView = ({ classes, phoneMatches }) => {
     });
   };
 
+  const handleSendNotes =  () => {
+    const formData = new FormData(document.querySelector("form#notes-form"))
+    const email = formData.get("customer-email-input")
+    const message = formData.get("customer-text")
+    if (email.length === 0 && message.length == 0){
+      return
+    }
+    const data = {email,message}
+    fetch("/.netlify/functions/customer-message", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(data),
+    })
+  }
+
+
   const products = Object.values(cartDetails).filter((product) =>
     product.name !== "Shipping"
   );
@@ -253,10 +280,10 @@ const CartView = ({ classes, phoneMatches }) => {
           <CartTable products={products} phoneMatches={phoneMatches} />
         </div>
         <Subtotal classes={classes} value={subTotalValue} />
-        <CheckoutButton handleCheckout={handleCheckout} classes={classes} />
+      <Notes handleSubmit={handleSendNotes}/>
+        {checkingOut ? <CheckoutButton handleCheckout={()=>{}} classes={classes} />: <CheckoutButton handleCheckout={handleCheckout} classes={classes} />}
         <FloatingCartIcon classes={classes} phoneMatches={phoneMatches} />
       </div>
-      <Notes/>
     </div>
   );
 };

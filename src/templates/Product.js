@@ -142,7 +142,7 @@ export const ProductItem = (props) => {
   const classes = useStyle(styleProps);
   const { product } = props;
   const { addItem } = useShoppingCart();
-  debugger
+  //debugger
   if (product.gatsbyImages === undefined){
     //debugger
     console.warn("it's undefined" + product.name)

@@ -6,6 +6,7 @@
   "license": "MIT",
   "dependencies": {
     "@sendgrid/mail": "^7.0.0",
+    "node-fetch": "^2.6.1",
     "stripe": "^8.39.0"
   }
 }
