@@ -145,8 +145,8 @@ export const ProductItem = (props) => {
   //debugger
   if (product.gatsbyImages === undefined){
     //debugger
-    console.warn("it's undefined" + product.name)
-    console.log(product)
+    //console.warn("it's undefined" + product.name)
+    //console.log(product)
   }
   let fluidImg;
   if (product.gatsbyImages[0]) {

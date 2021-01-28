@@ -3,8 +3,8 @@ exports.handler = async (event) => {
   try {
     const data = JSON.parse(event.body);
     const discordUrl = process.env.DISCORD_WEBHOOK
-    const discordBody = `Mail from **${data.email}**\n----------------------------\n${data.message}\n-------------------------------------`
-    fetch(discordUrl,{
+    console.log("fetching discord url")
+    await fetch(discordUrl,{
       method: 'POST',
       headers : {
         "Content-Type" : "application/json"

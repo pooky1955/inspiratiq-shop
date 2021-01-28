@@ -250,7 +250,7 @@ const CartView = ({ classes, phoneMatches }) => {
     });
   };
 
-  const handleSendNotes =  () => {
+  const handleSendNotes =  async () => {
     const formData = new FormData(document.querySelector("form#notes-form"))
     const email = formData.get("customer-email-input")
     const message = formData.get("customer-text")
@@ -258,7 +258,7 @@ const CartView = ({ classes, phoneMatches }) => {
       return
     }
     const data = {email,message}
-    fetch("/.netlify/functions/customer-message", {
+    await fetch("/.netlify/functions/customer-message", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

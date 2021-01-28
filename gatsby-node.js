@@ -29,7 +29,7 @@ const getPricesData = ({ prices, images }) => {
     const imageName = parseName(dirName.split("-")[0])
     const index = parseInt(image.name);
     addToDict(myDict, imageName, index, image);
-    console.log({imageName,index,image})
+    //console.log({imageName,index,image})
   });
   const pricesData = prices.edges.map(({ node: price }) => {
     const imageName = parseName(price.product.name)
@@ -107,7 +107,7 @@ exports.createPages = async ({ graphql, actions, reporter, createNodeId }) => {
 
   const pricesData = getPricesData({ prices, images });
   pricesData.forEach((priceData) => {
-    console.log(priceData)
+    //console.log(priceData)
     createPage({
       path: `/product/${priceData.sku}`,
       component: productTemplate,
