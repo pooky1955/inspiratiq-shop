@@ -99,20 +99,21 @@ export const ProductCell = ({ product, phoneMatches, classes }) => {
     return null
   }
   const fluidImage = product.gatsbyImages[0].childImageSharp.fluid;
-  //console.log(fluidImage);
+  console.log(fluidImage);
   return (
     <td
       className={classes.imageCell}
-      style={{ height: "100%", paddingRight: "0" }}
+      style={{ height: "100%", paddingRight: "0", width : "6rem" }}
     >
       <Link
         to={"/product/" + product.sku}
         style={{ height: "100%", width: "100%" }}
       >
+
         <Img
           durationFadeIn={100}
           fluid={fluidImage}
-          height={phoneMatches ? "60" : "80"}
+          // height={phoneMatches ? "60px" : "80px"}
           style={{ height: "100%", width: "80%" }}
         >
         </Img>
@@ -258,7 +259,6 @@ export const CartTable = ({ phoneMatches, products }) => {
       {products.map((val) => (
         <CartRow product={val} phoneMatches={phoneMatches}></CartRow>
       ))}
-      <Shipping />
     </table>
   );
 };

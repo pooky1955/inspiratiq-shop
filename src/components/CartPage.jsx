@@ -46,6 +46,7 @@ const useStyle = makeStyles({
   cartContainer: {
     // maxWidth: '70%',
     width : "85%",
+    minWidth : "400px",
     margin : "auto",
     display: "flex",
     flexDirection: "column",
@@ -96,19 +97,19 @@ const useStyle = makeStyles({
   }
 });
 
-export const shippingQuery = graphql`
-  query ShippingQuery {
-    stripePrice(product :{name : {eq :"Shipping"}}) {
-      id
-      unit_amount
-      currency
-      product {
-	id
-	name
-      }
-    }
-  }
-`;
+// export const shippingQuery = graphql`
+//   query ShippingQuery {
+//     stripePrice(product :{name : {eq :"Shipping"}}) {
+//       id
+//       unit_amount
+//       currency
+//       product {
+// 	id
+// 	name
+//       }
+//     }
+//   }
+// `;
 const phoneProps = {
   alignItems: "center",
   flexDirection: "column",
@@ -210,20 +211,20 @@ const CartView = ({ classes, phoneMatches }) => {
     addItem,
     redirectToCheckout,
   } = useShoppingCart();
-  const shippingData = useStaticQuery(shippingQuery);
+  // const shippingData = useStaticQuery(shippingQuery);
   const [checkingOut,setCheckingOut] = useState(false)
   //alert(JSON.stringify(shippingData))
-  const shippingPrice = shippingData.stripePrice;
-  const shippingProduct = {
-    sku: shippingPrice.id,
-    name: shippingPrice.product.name,
-    price: shippingPrice.unit_amount,
-    currency: shippingPrice.currency,
-  };
-  useEffect(() => {
-    addItem(shippingProduct);
-    setItemQuantity(shippingProduct.sku, 1);
-  }, []);
+  // const shippingPrice = shippingData.stripePrice;
+  // const shippingProduct = {
+  //   sku: shippingPrice.id,
+  //   name: shippingPrice.product.name,
+  //   price: shippingPrice.unit_amount,
+  //   currency: shippingPrice.currency,
+  // };
+  // useEffect(() => {
+    // addItem(shippingProduct);
+    // setItemQuantity(shippingProduct.sku, 1);
+  // }, []);
   if (Object.values(cartDetails).length === 0) {
     return null;
   }
@@ -236,8 +237,8 @@ const CartView = ({ classes, phoneMatches }) => {
   const handleCheckout = async () => {
     setCheckingOut(true)
     handleSendNotes()
-    addItem(shippingProduct);
-    setItemQuantity(shippingProduct.sku, 1);
+    // addItem(shippingProduct);
+    // setItemQuantity(shippingProduct.sku, 1);
     const response = await fetch("/.netlify/functions/create-checkout", {
       method: "POST",
       headers: {
@@ -267,10 +268,10 @@ const CartView = ({ classes, phoneMatches }) => {
     })
   }
 
-
-  const products = Object.values(cartDetails).filter((product) =>
-    product.name !== "Shipping"
-  );
+ const products = Object.values(cartDetails)
+  // const products = Object.values(cartDetails).filter((product) =>
+  //   product.name !== "Shipping"
+  // );
 
   return (
     <div className={classes.cartContainer}>
@@ -288,25 +289,25 @@ const CartView = ({ classes, phoneMatches }) => {
   );
 };
 
-export const useCartCount = () => {
-  const { cartDetails, cartCount } = useShoppingCart();
-  const hasShipping =
-    Object.values(cartDetails).filter((el) => el.name === "Shipping").length >=
-      1;
-  return hasShipping ? cartCount - 1 : cartCount;
-};
+// export const useCartCount = () => {
+  // const { cartDetails, cartCount } = useShoppingCart();
+//   const hasShipping =
+//     Object.values(cartDetails).filter((el) => el.name === "Shipping").length >=
+//       1;
+//   return hasShipping ? cartCount - 1 : cartCount;
+// };
 export const CartPage = () => {
   let props;
-  const phoneMatches = useMediaQuery("(max-width: 580px)");
-  const { cartDetails } = useShoppingCart();
+  const phoneMatches = useMediaQuery("(max-width: 750px)");
+  const { cartDetails, cartCount } = useShoppingCart();
   if (phoneMatches) {
     props = phoneProps;
   } else {
     props = normalProps;
   }
   const classes = useStyle(props);
-  const realCartCount = useCartCount();
-  if (realCartCount <= 0) {
+  // const realCartCount = useCartCount();
+  if (cartCount <= 0) {
     return <EmptyCartView classes={classes} />;
   } else {
     return <CartView classes={classes} phoneMatches={phoneMatches} />;

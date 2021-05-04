@@ -31,6 +31,8 @@ exports.handler = async (event) => {
       payment_method_types: ["card"],
       mode : "payment",
       billing_address_collection: "auto",
+      shipping_rates: ["shr_1ImSucKyXfa4PBtt9iWTN7Be"],
+      allow_promotion_codes: true,
       shipping_address_collection: {
         allowed_countries: codes
       },
