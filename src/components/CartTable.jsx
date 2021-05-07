@@ -106,7 +106,7 @@ export const ProductCell = ({ product, phoneMatches, classes }) => {
       style={{ height: "100%", paddingRight: "0", width : "6rem" }}
     >
       <Link
-        to={"/product/" + product.sku}
+        to={"/product/" + product.productId}
         style={{ height: "100%", width: "100%" }}
       >
 
@@ -124,10 +124,11 @@ export const ProductCell = ({ product, phoneMatches, classes }) => {
 
 export const RemoveButton = ({ product, phoneMatches, classes }) => {
   const { removeItem } = useShoppingCart();
+  const name = product.nickname ? product.nickname : product.name
   return (
     <td>
-      <a href={"/product/" + product.sku} className={classes.itemLink}>
-        <div className={classes.productName}>{product.name}</div>
+      <a href={"/product/" + product.productId} className={classes.itemLink}>
+        <div className={classes.productName}>{name}</div>
       </a>
       {phoneMatches && (
         <button

@@ -83,7 +83,8 @@ export const formatPrice = (amount, currency) => {
     return numberFormat.format(price)
 }
 
-const ProductCard = ({ product, displayProduct }) => {
+const ProductCard = ({ products  }) => {
+  const product = products[0]
     const classes = useStyles()
     //console.log(product)
     //console.log(product)
@@ -102,7 +103,6 @@ const ProductCard = ({ product, displayProduct }) => {
                     <div className={classes.overlay}>
                         <button
                             className={classes.button}
-                            onClick={() => displayProduct(product)}
                         >
                             <Img
                                 fluid={fixedImg}
@@ -129,13 +129,12 @@ const ProductCard = ({ product, displayProduct }) => {
         <div className={classes.cardStyles}>
             <fieldset style={{ border: 'none' }}>
                 <Link
-                    to={`/product/${product.sku}`}
+                    to={`/product/${product.productId}`}
                     className={classes.linkStyle}
                 >
                     <div className={classes.overlay}>
                         <button
                             className={classes.button}
-                            onClick={() => displayProduct(product)}
                         >
                             <Img
                                 fluid={fixedImg}

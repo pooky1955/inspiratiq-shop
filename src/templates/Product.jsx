@@ -7,6 +7,7 @@ import Layout from "../components/layout";
 import { Link } from "gatsby";
 import CartButton from "../components/CartButton";
 import useMediaQuery from "@material-ui/core/useMediaQuery";
+import { Select } from "../components/Select";
 
 const useStyle = makeStyles({
   itemContainer: (styleProps) => ({
@@ -119,6 +120,10 @@ const useStyle = makeStyles({
     justifyContent: "space-between",
     marginBottom: "1rem",
   },
+  option: {
+    fontSize: "1.2rem",
+    marginBottom: "0.5rem",
+  },
 });
 
 export const ProductItem = (props) => {
@@ -140,14 +145,30 @@ export const ProductItem = (props) => {
     };
   }
   const classes = useStyle(styleProps);
-  const { product } = props;
+  const { products } = props;
+  const initialProduct = products.filter((product) => !product.nickname)[0];
+  const initialProductName = initialProduct.name;
+  const [product, setProduct] = useState(initialProduct);
+  const differentProducts = products.filter((product) => product.nickname);
+  const selectData = differentProducts.map(({ nickname }) => {
+    return { value: nickname, name: nickname };
+  });
+  const showSelect = differentProducts.length > 0;
+  selectData.push({ value: initialProduct.name, name: initialProduct.name });
+
+  const handleChange = (e) => {
+    const productName = e.target.value;
+    let matchProduct;
+    if (productName === initialProductName) {
+      matchProduct = initialProduct;
+    } else {
+      matchProduct = products.filter(({ nickname }) =>
+        nickname === productName
+      )[0];
+    }
+    setProduct(matchProduct);
+  };
   const { addItem } = useShoppingCart();
-  //debugger
-  if (product.gatsbyImages === undefined){
-    //debugger
-    //console.warn("it's undefined" + product.name)
-    //console.log(product)
-  }
   let fluidImg;
   if (product.gatsbyImages[0]) {
     fluidImg = product.gatsbyImages[0].childImageSharp.fluid;
@@ -206,6 +227,14 @@ export const ProductItem = (props) => {
               >
                 Add to cart
               </button>}
+            {showSelect && <>
+              <span className={classes.option}>Options</span>
+              <Select
+                data={selectData}
+                value={product.nickname ? product.nickname : product.name}
+                onChange={handleChange}
+              />
+            </>}
             <div>{product.metadata.additionalDescription}</div>
           </div>
         </div>
@@ -223,12 +252,11 @@ export const ProductItem = (props) => {
 //`
 
 export const ProductPage = (props) => {
-  // alert(JSON.stringify(props))
   if (props.pageResources) {
-    const product = props.pageResources.json.pageContext.product;
+    const products = props.pageResources.json.pageContext.products;
     return (
       <Layout>
-        <ProductItem product={product} />
+        <ProductItem products={products} />
       </Layout>
     );
   } else {

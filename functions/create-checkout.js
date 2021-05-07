@@ -25,8 +25,14 @@ exports.handler = async (event) => {
     const productJSON = JSON.parse(event.body);
 
     //const line_items = validateCartItems(inventory, productJSON);
-    const line_items = productJSON
+    const rawLineItems = productJSON
     const URL = process.env.URL
+    const paymentDescription = rawLineItems.map(product => `${product.quantity}x ${product.metadata.displayName}`).join(", ")
+    console.log(`Payment description: ${paymentDescription}`)
+    const line_items = rawLineItems.map(item => {
+      const {metadata,...rest} = item
+      return rest
+    })
     const session = await stripe.checkout.sessions.create({
       payment_method_types: ["card"],
       mode : "payment",
@@ -36,16 +42,12 @@ exports.handler = async (event) => {
       shipping_address_collection: {
         allowed_countries: codes
       },
-
-      /*
-       * This env var is set by Netlify and inserts the live site URL. If you want
-       * to use a different URL, you can hard-code it here or check out the
-       * other environment variables Netlify exposes:
-       * https://docs.netlify.com/configure-builds/environment-variables/
-       */
       success_url: `${URL}/Success`,
       cancel_url: URL,
-      line_items,
+      line_items: line_items,
+      payment_intent_data : {
+        description : paymentDescription
+      }
     });
 
     return {

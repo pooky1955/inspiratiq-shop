@@ -4,8 +4,6 @@ import { makeStyles } from '@material-ui/core/styles'
 import { MDXRenderer } from 'gatsby-plugin-mdx'
 import { graphql } from 'gatsby'
 const useStyle = makeStyles(theme => {
-  //   debugger
-  // console.log(theme)
   return {
     pageTitle: {
       display: 'flex',

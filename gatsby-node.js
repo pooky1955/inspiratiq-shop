@@ -42,12 +42,26 @@ const getPricesData = ({ prices, images }) => {
       image: price.product.images[0],
       gatsbyImages: images,
       metadata: price.product.metadata,
+      productId : price.product.id,
+      nickname : price.nickname
     }
     return data
   })
   return pricesData
 }
 
+const groupProducts = (prices) => {
+  const groupedProducts = {};
+  prices.forEach((price) => {
+    const { productId } = price;
+    if (productId in groupedProducts) {
+      groupedProducts[productId].push(price);
+    } else {
+      groupedProducts[productId] = [price];
+    }
+  });
+  return groupedProducts;
+};
 exports.createPages = async ({ graphql, actions, reporter, createNodeId }) => {
   const { createPage } = actions
   const data = await graphql(`
@@ -62,6 +76,7 @@ exports.createPages = async ({ graphql, actions, reporter, createNodeId }) => {
             active
             currency
             unit_amount
+            nickname
             product {
               id
               active
@@ -104,17 +119,21 @@ exports.createPages = async ({ graphql, actions, reporter, createNodeId }) => {
     reporter.panic('Error loading stripe products!', reporter.errors)
   }
   const { prices, images } = data.data
-  const productTemplate = path.resolve(`src/templates/Product.js`)
+  const productTemplate = path.resolve(`src/templates/Product.jsx`)
 
   const pricesData = getPricesData({ prices, images })
-  pricesData.forEach((priceData) => {
-    //console.log(priceData)
+  const groupedProducts = groupProducts(pricesData)
+  Object.entries(groupedProducts).map(([productId,products]) => {
+    console.log("creating a page for products")
+    console.log(products)
     createPage({
-      path: `/product/${priceData.sku}`,
+
+      path: `/product/${productId}`,
       component: productTemplate,
       context: {
-        product: priceData,
+        products
       },
     })
+
   })
 }

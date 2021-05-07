@@ -1,12 +1,16 @@
-require('dotenv').config({
+require("dotenv").config({
   path: `.env.${process.env.NODE_ENV}`,
-})
+});
 
 module.exports = {
   siteMetadata: {
     title: `INSPIRATIQ`,
     description: `Shop art prints by @inspiratiq`,
     author: `James Liang and Marlene Liang`,
+  },
+
+  flags: {
+    DEV_SSR: false,
   },
   plugins: [
     `gatsby-plugin-netlify`,
@@ -21,7 +25,7 @@ module.exports = {
     {
       resolve: `gatsby-source-stripe`,
       options: {
-        objects: ['Price'],
+        objects: ["Price"],
         secretKey: process.env.STRIPE_SECRET_KEY,
         downloadFiles: false,
       },
@@ -44,26 +48,26 @@ module.exports = {
     `gatsby-transformer-remark`,
     `gatsby-transformer-sharp`,
     {
-      resolve : `gatsby-plugin-sharp`,
-      options : {
-	base64Width : 20,
-      }
+      resolve: `gatsby-plugin-sharp`,
+      options: {
+        base64Width: 20,
+      },
     },
     {
-       resolve: `gatsby-plugin-manifest`,
-       options: {
-	 name: `Inspiratiq Shop`,
-	 short_name: `Inspiratiq`,
-	 start_url: `/`,
-	 background_color: `#663399`,
-	 theme_color: `#663399`,
-	 display: `minimal-ui`,
-	 icon: `src/images/queenicon.png`, // This path is relative to the root of the site.
-       },
-     },
+      resolve: `gatsby-plugin-manifest`,
+      options: {
+        name: `Inspiratiq Shop`,
+        short_name: `Inspiratiq`,
+        start_url: `/`,
+        background_color: `#663399`,
+        theme_color: `#663399`,
+        display: `minimal-ui`,
+        icon: `src/images/queenicon.png`, // This path is relative to the root of the site.
+      },
+    },
     // this (optional) plugin enables Progressive Web App + Offline functionality
     // To learn more, visit: https://gatsby.app/offline
     //`gatsby-plugin-preact`,
-     'gatsby-plugin-offline',
+    "gatsby-plugin-offline",
   ],
-}
+};

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import codes from "./codes";
-import Notes from "./Notes"
+import Notes from "./Notes";
 import { makeStyles } from "@material-ui/core/styles";
 import SadCart from "../images/SadCart.png";
 import { useShoppingCart } from "use-shopping-cart";
@@ -45,9 +45,9 @@ const useStyle = makeStyles({
   },
   cartContainer: {
     // maxWidth: '70%',
-    width : "85%",
-    minWidth : "400px",
-    margin : "auto",
+    width: "85%",
+    minWidth: "400px",
+    margin: "auto",
     display: "flex",
     flexDirection: "column",
     alignItems: "center",
@@ -82,7 +82,7 @@ const useStyle = makeStyles({
   },
   checkoutAndCartImage: {
     display: "flex",
-    width : "100%",
+    width: "100%",
     flexDirection: "row",
     alignItems: "center",
   },
@@ -92,24 +92,11 @@ const useStyle = makeStyles({
     transform: "translate(90%)",
     marginTop: "1rem",
   },
-  allContainer : {
-    width : "80%"
-  }
+  allContainer: {
+    width: "80%",
+  },
 });
 
-// export const shippingQuery = graphql`
-//   query ShippingQuery {
-//     stripePrice(product :{name : {eq :"Shipping"}}) {
-//       id
-//       unit_amount
-//       currency
-//       product {
-// 	id
-// 	name
-//       }
-//     }
-//   }
-// `;
 const phoneProps = {
   alignItems: "center",
   flexDirection: "column",
@@ -196,11 +183,21 @@ export const FloatingCartIcon = ({ phoneMatches, classes }) => {
   );
 };
 
-function parseItems(cartDetails){
-  return Object.values(cartDetails).map(product => {
-    const {sku,quantity} = product
-    return {price : sku,quantity}
-  })
+function parseItems(cartDetails) {
+  return Object.values(cartDetails).map((product) => {
+    const { sku, quantity } = product;
+    const metadata = product.nickname
+      ? { displayName: product.nickname }
+      : { displayName: product.name };
+    return product.nickname
+      ? {
+        price: sku,
+        quantity,
+        description: product.nickname,
+        metadata,
+      }
+      : { price: sku, quantity, metadata };
+  });
 }
 
 const CartView = ({ classes, phoneMatches }) => {
@@ -211,20 +208,7 @@ const CartView = ({ classes, phoneMatches }) => {
     addItem,
     redirectToCheckout,
   } = useShoppingCart();
-  // const shippingData = useStaticQuery(shippingQuery);
-  const [checkingOut,setCheckingOut] = useState(false)
-  //alert(JSON.stringify(shippingData))
-  // const shippingPrice = shippingData.stripePrice;
-  // const shippingProduct = {
-  //   sku: shippingPrice.id,
-  //   name: shippingPrice.product.name,
-  //   price: shippingPrice.unit_amount,
-  //   currency: shippingPrice.currency,
-  // };
-  // useEffect(() => {
-    // addItem(shippingProduct);
-    // setItemQuantity(shippingProduct.sku, 1);
-  // }, []);
+  const [checkingOut, setCheckingOut] = useState(false);
   if (Object.values(cartDetails).length === 0) {
     return null;
   }
@@ -232,13 +216,10 @@ const CartView = ({ classes, phoneMatches }) => {
     totalPrice,
     Object.values(cartDetails)[0].currency,
   );
-  //addItem(shippingSku)
 
   const handleCheckout = async () => {
-    setCheckingOut(true)
-    handleSendNotes()
-    // addItem(shippingProduct);
-    // setItemQuantity(shippingProduct.sku, 1);
+    setCheckingOut(true);
+    handleSendNotes();
     const response = await fetch("/.netlify/functions/create-checkout", {
       method: "POST",
       headers: {
@@ -251,28 +232,24 @@ const CartView = ({ classes, phoneMatches }) => {
     });
   };
 
-  const handleSendNotes =  async () => {
-    const formData = new FormData(document.querySelector("form#notes-form"))
-    const email = formData.get("customer-email-input")
-    const message = formData.get("customer-text")
-    if (email.length === 0 && message.length == 0){
-      return
+  const handleSendNotes = async () => {
+    const formData = new FormData(document.querySelector("form#notes-form"));
+    const email = formData.get("customer-email-input");
+    const message = formData.get("customer-text");
+    if (email.length === 0 && message.length == 0) {
+      return;
     }
-    const data = {email,message}
+    const data = { email, message };
     await fetch("/.netlify/functions/customer-message", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
       body: JSON.stringify(data),
-    })
-  }
+    });
+  };
 
- const products = Object.values(cartDetails)
-  // const products = Object.values(cartDetails).filter((product) =>
-  //   product.name !== "Shipping"
-  // );
-
+  const products = Object.values(cartDetails);
   return (
     <div className={classes.cartContainer}>
       <h1 className={classes.title}>YOUR CART</h1>
@@ -281,21 +258,19 @@ const CartView = ({ classes, phoneMatches }) => {
           <CartTable products={products} phoneMatches={phoneMatches} />
         </div>
         <Subtotal classes={classes} value={subTotalValue} />
-      <Notes handleSubmit={handleSendNotes}/>
-        {checkingOut ? <CheckoutButton handleCheckout={()=>{}} classes={classes} />: <CheckoutButton handleCheckout={handleCheckout} classes={classes} />}
+        <Notes handleSubmit={handleSendNotes} />
+        {checkingOut
+          ? <CheckoutButton handleCheckout={() => {}} classes={classes} />
+          : <CheckoutButton
+            handleCheckout={handleCheckout}
+            classes={classes}
+          />}
         <FloatingCartIcon classes={classes} phoneMatches={phoneMatches} />
       </div>
     </div>
   );
 };
 
-// export const useCartCount = () => {
-  // const { cartDetails, cartCount } = useShoppingCart();
-//   const hasShipping =
-//     Object.values(cartDetails).filter((el) => el.name === "Shipping").length >=
-//       1;
-//   return hasShipping ? cartCount - 1 : cartCount;
-// };
 export const CartPage = () => {
   let props;
   const phoneMatches = useMediaQuery("(max-width: 750px)");
