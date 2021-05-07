@@ -146,7 +146,10 @@ export const ProductItem = (props) => {
   }
   const classes = useStyle(styleProps);
   const { products } = props;
-  const initialProduct = products.filter((product) => !product.nickname)[0];
+  let initialProduct = products.filter((product) => !product.nickname)[0];
+  if (!initialProduct) {
+    initialProduct = products[0]
+  }
   const initialProductName = initialProduct.name;
   const [product, setProduct] = useState(initialProduct);
   const differentProducts = products.filter((product) => product.nickname);

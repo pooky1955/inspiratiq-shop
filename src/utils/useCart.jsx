@@ -46,8 +46,6 @@ export const CartVerifier = () => {
   );
   const isOk = filteredCart.length === Object.values(cartDetails).length;
   if (!isOk) {
-    alert("filtered stuffy")
-    debugger
     const newCart = dc((prod) => [prod.sku, prod], filteredCart);
     loadCart(newCart, false);
   }
