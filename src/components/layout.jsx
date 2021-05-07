@@ -1,31 +1,17 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { StaticQuery, graphql } from "gatsby";
+import { StaticQuery, graphql, useStaticQuery } from "gatsby";
 import Footer from "./Footer";
 import Header from "./header";
 import "./layout.css";
 import { loadStripe } from "@stripe/stripe-js";
-import { CartProvider, useShoppingCart } from "use-shopping-cart";
+import { CartProvider  } from "use-shopping-cart";
+import { CartVerifier } from "../utils/useCart"
 
 import "@stripe/stripe-js"; // https://github.com/stripe/stripe-js#import-as-a-side-effect
 
 const stripePromise = loadStripe(process.env.GATSBY_STRIPE_PUBLISHABLE_KEY);
 const windowExists = typeof window !== `undefined`;
-
-
-const CartVerifier = () => {
-  const {clearCart,cartDetails} = useShoppingCart()
-  const undefinedCount = 0
-  for (let product of Object.values(cartDetails)){
-    if (product.name !== "Shipping" && !product.gatsbyImages && product.image){
-      undefinedCount += 1
-    }
-  }
-  if (undefinedCount >= 1){
-    clearCart()
-  }
-  return null
-}
 
 const renderMethod = ({children}) => (data) => {
       return (
