@@ -97,7 +97,7 @@ const addToDict = (myDict, imageKeyName, index, image) => {
   myDict[imageKeyName][index] = image;
 };
 const parseName = (name) => {
-  const patt = /[^a-zA-Z]/g;
+  const patt = /[^a-zA-Z0-9]/g;
   return name.replace(patt, "").toLowerCase();
 };
 const getPricesData = ({ prices, images }) => {
