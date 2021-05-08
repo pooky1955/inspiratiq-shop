@@ -43,7 +43,8 @@ const getPricesData = ({ prices, images }) => {
       gatsbyImages: images,
       metadata: price.product.metadata,
       productId : price.product.id,
-      nickname : price.nickname
+      nickname : price.nickname,
+      original : price
     }
     return data
   })
@@ -67,7 +68,7 @@ exports.createPages = async ({ graphql, actions, reporter, createNodeId }) => {
   const data = await graphql(`
     query ProductPrices {
       prices: allStripePrice(
-        filter: { active: { eq: true }, product: { active: { eq: true },metadata : {soldOut : {eq : null}} } }
+        filter: { product: { active: { eq: true },metadata : {soldOut : {eq : null}} } }
         sort: { fields: [product___metadata___order] }
       ) {
         edges {

@@ -124,6 +124,11 @@ const useStyle = makeStyles({
     fontSize: "1.2rem",
     marginBottom: "0.5rem",
   },
+  soldOutText : {
+    fontSize : "1.5rem",
+    color : "#F88A17",
+    fontWeight : "700"
+  }
 });
 
 export const ProductItem = (props) => {
@@ -146,18 +151,16 @@ export const ProductItem = (props) => {
   }
   const classes = useStyle(styleProps);
   const { products } = props;
-  let initialProduct = products.filter((product) => !product.nickname)[0];
-  if (!initialProduct) {
-    initialProduct = products[0]
-  }
+  let initialProduct = products[0];
   const initialProductName = initialProduct.name;
   const [product, setProduct] = useState(initialProduct);
   const differentProducts = products.filter((product) => product.nickname);
-  const selectData = differentProducts.map(({ nickname }) => {
-    return { value: nickname, name: nickname };
+  const selectData = differentProducts.map((product) => {
+    const {nickname, original} = product
+    const title = original.active ? nickname : `(SOLD OUT) : ${nickname}`
+    return { value: nickname, name: title };
   });
   const showSelect = differentProducts.length > 0;
-  selectData.push({ value: initialProduct.name, name: initialProduct.name });
 
   const handleChange = (e) => {
     const productName = e.target.value;
@@ -222,7 +225,9 @@ export const ProductItem = (props) => {
               {" "}
               {formatPrice(product.price, product.currency)}
             </div>
-            {isAdded
+            {product.metadata.soldOut === "true" || !product.original.active
+              ? <div className={classes.soldOutText}>Sold out</div>
+              : isAdded
               ? <button className={classes.addCartButton}>Added!</button>
               : <button
                 className={classes.addCartButton}
@@ -230,6 +235,7 @@ export const ProductItem = (props) => {
               >
                 Add to cart
               </button>}
+
             {showSelect && <>
               <span className={classes.option}>Options</span>
               <Select
@@ -238,7 +244,9 @@ export const ProductItem = (props) => {
                 onChange={handleChange}
               />
             </>}
-            <div>{product.metadata.additionalDescription}</div>
+    <div>{product.metadata.additionalDescription.split("\\n").map(sentence => {
+      return <> {sentence} <br/> </>
+    })}</div>
           </div>
         </div>
       </div>

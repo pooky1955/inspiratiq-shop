@@ -63,7 +63,9 @@ export const ProductPage = () => {
     { name: "All Prints", value: "" },
     { name: "Studio Ghibli Collection", value: "Studio Ghibli" },
     { name: "Wanderlust Collection", value: "Wanderlust" },
-    { name : "Stickers Collection", value : "Stickers" }
+    { name : "Stickers Collection", value : "Stickers" },
+    { name : "ATLA Collection", value : "ATLA" },
+    { name : "Animal Friends Collection", value : "Animal Friends" },
   ];
 
   return (
