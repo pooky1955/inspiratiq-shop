@@ -45,6 +45,9 @@ const useStyle = makeStyles({
     justifyContent: "space-between",
   },
 });
+
+
+
 export const ProductPage = () => {
   let props;
   const desktopMatches = useMediaQuery("(min-width: 700px)");
@@ -60,6 +63,7 @@ export const ProductPage = () => {
     { name: "All Prints", value: "" },
     { name: "Studio Ghibli Collection", value: "Studio Ghibli" },
     { name: "Wanderlust Collection", value: "Wanderlust" },
+    { name : "Stickers Collection", value : "Stickers" }
   ];
 
   return (
