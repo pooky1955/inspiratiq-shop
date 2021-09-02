@@ -71,7 +71,7 @@ export const FAQ = ({ data }) => {
         <img src={PinkBubble} height="280" width="750" />
         <div className={classes.subtitle}>
           If you have any issues or questions, please contact me at{' '}
-          <span className={classes.email}>inspiratiq@hotmail.com</span> and I
+          <span className={classes.email}>inspiratiq.art@gmail.com</span> and I
           will be happy to answer!
         </div>
       </div>
@@ -91,7 +91,7 @@ export const FAQ = ({ data }) => {
       <div>
         Given the current situation, delays can be expected for certain
         packages. Thank you for your patience and understanding. Please contact
-        me at <b>inspiratiq@hotmail.com</b> with your <b>order number</b> or{' '}
+        me at <b>inspiratiq.art@gmail.com</b> with your <b>order number</b> or{' '}
         <b>full name</b> if you haven’t received your package in these time
         frames.
       </div> */}

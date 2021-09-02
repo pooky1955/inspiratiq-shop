@@ -45,8 +45,8 @@ export const TextBubble = () => {
       <div className={classes.subtitle}>
         If you have any issues or questions, please contact me at{' '}
         <span className={classes.email}>
-          <a href="mailto:inspiratiq@hotmail.com" className={classes.email}>
-            inspiratiq@hotmail.com
+          <a href="mailto:inspiratiq.art@gmail.com" className={classes.email}>
+            inspiratiq.art@gmail.com
           </a>{' '}
         </span>
         and I will be happy to answer!
