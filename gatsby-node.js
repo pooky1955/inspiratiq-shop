@@ -93,13 +93,14 @@ exports.createPages = async ({ graphql, actions, reporter, createNodeId }) => {
           }
         }
       }
-      images: allFile(filter: { dir: { regex: "/(.*)price(.*)/i" } }) {
+      images: allFile(filter: { relativePath: { regex: "/(.*)price(.*)((png)|(jpeg)|(jpg))/i" } }) {
         edges {
           node {
             id
             name
             dir
             publicURL
+            relativePath
             childImageSharp {
               fluid(maxWidth: 600) {
                 aspectRatio

@@ -104,6 +104,9 @@ const ProductCard = ({ products }) => {
   if (!product.gatsbyImages) {
     return null;
   }
+  if (!product.gatsbyImages[0]){
+    return null;
+  }
   const fixedImg = product.gatsbyImages[0].childImageSharp.fluid;
   const soldOut = product.metadata.soldOut;
   if (soldOut !== null) {
