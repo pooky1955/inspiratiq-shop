@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import Img from 'gatsby-image'
-import { Video } from 'gatsby-video'
+// import { Video } from 'gatsby-video'
 import { makeStyles } from '@material-ui/styles'
 import { formatPrice } from '../components/Products/ProductCard'
 import { useShoppingCart } from 'use-shopping-cart'
@@ -192,10 +192,10 @@ export const ProductItem = props => {
         <Img fluid={fluid} durationFadeIn={100} style={{ width: '100%' }} />
     )
 
-    const convertVid = video => {
-        debugger
-        return <Video autoPlay muted loop sources={[video.mp4]} />
-    }
+    // const convertVid = video => {
+    //     debugger
+    //     return <Video autoPlay muted loop sources={[video.mp4]} />
+    // }
     const allImages = product.gatsbyImages
         ? Object.entries(product.gatsbyImages)
               .filter(
