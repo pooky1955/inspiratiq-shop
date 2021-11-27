@@ -47,7 +47,7 @@ module.exports = {
     },
     `gatsby-transformer-remark`,
     `gatsby-transformer-sharp`,
-    `gatsby-transformer-ffmpeg`,
+    // `gatsby-transformer-ffmpeg`,
     {
       resolve: `gatsby-plugin-sharp`,
       options: {

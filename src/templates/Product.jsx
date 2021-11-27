@@ -207,12 +207,13 @@ export const ProductItem = props => {
               })
         : []
     // alert(product.videos)
-    const allVids = product.videos
-        ? Object.entries(product.videos).map(([_, vid]) => {
-              debugger
-              return convertVid(vid.childVideoFfmpeg)
-          })
-        : []
+    // const allVids = product.videos
+    //     ? Object.entries(product.videos).map(([_, vid]) => {
+    //           debugger
+    //           return convertVid(vid.childVideoFfmpeg)
+    //       })
+    //     : []
+    const allVids = []
     return (
         <div>
             <div className={classes.topContainer}>

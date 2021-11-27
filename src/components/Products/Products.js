@@ -9,7 +9,32 @@ const containerStyles = {
     gridGap: '4px',
     // gridColumnGap : "20px"
 }
+/* unused graphql query for video
 
+        videos: allFile(
+            filter: { relativePath: { regex: "/(.*)price(.*)mp4/i" } }
+        ) {
+            edges {
+                node {
+                    id
+                    dir
+                    relativePath
+                    childVideoFfmpeg {
+                        id
+                        transcode {
+                            src
+                            width
+                            height
+                            presentationMaxWidth
+                            presentationMaxHeight
+                            aspectRatio
+                            fileExtension
+                        }
+                    }
+                }
+            }
+        }
+*/
 export const productsQuery = graphql`
     query ProductPrices {
         prices: allStripePrice(
@@ -32,29 +57,6 @@ export const productsQuery = graphql`
                             order
                             soldOut
                             shipping
-                        }
-                    }
-                }
-            }
-        }
-        videos: allFile(
-            filter: { relativePath: { regex: "/(.*)price(.*)mp4/i" } }
-        ) {
-            edges {
-                node {
-                    id
-                    dir
-                    relativePath
-                    childVideoFfmpeg {
-                        id
-                        transcode {
-                            src
-                            width
-                            height
-                            presentationMaxWidth
-                            presentationMaxHeight
-                            aspectRatio
-                            fileExtension
                         }
                     }
                 }
@@ -127,26 +129,26 @@ const parseName = name => {
 const getPricesData = ({ prices, videos, images }) => {
     let imageDict = {}
     let videoDict = {}
-    const getInfo = (visual) => {
+    const getInfo = visual => {
         const dirName = getDirName(visual.dir)
         const visualName = parseName(dirName.split('-')[0])
         const index = parseInt(visual.name)
-        return [visualName,index,visual]
+        return [visualName, index, visual]
     }
-    const addImage = ({ node : visual}) => {
+    const addImage = ({ node: visual }) => {
         addToDict(imageDict, ...getInfo(visual))
     }
-    const addVideo = ({node : visual}) => {
-        addToDict(videoDict,...getInfo(visual))
-    }
+    // const addVideo = ({ node: visual }) => {
+    //     addToDict(videoDict, ...getInfo(visual))
+    // }
 
     images.edges.forEach(addImage)
-    videos.edges.forEach(addVideo)
+    // videos.edges.forEach(addVideo)
 
     const pricesData = prices.edges.map(({ node: price }) => {
         const imageName = parseName(price.product.name)
         const images = imageDict[imageName]
-        const videos = videoDict[imageName]
+        // const videos = videoDict[imageName]
         //console.table(Object.entries((myDict)))
         if (images != undefined) {
             //alert(`Image name : ${imageName}`)
@@ -158,7 +160,7 @@ const getPricesData = ({ prices, videos, images }) => {
             currency: price.currency,
             image: price.product.images[0],
             gatsbyImages: images,
-            videos : videos,
+            // videos: videos,
             metadata: price.product.metadata,
             productId: price.product.id,
         }
