@@ -13,7 +13,6 @@ module.exports = {
     DEV_SSR: false,
   },
   plugins: [
-    `gatsby-plugin-netlify`,
     {
       resolve: `gatsby-plugin-material-ui`,
       options: {

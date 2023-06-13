@@ -156,12 +156,16 @@ export const ProductItem = props => {
     const initialProductName = initialProduct.name
     const [product, setProduct] = useState(initialProduct)
     const differentProducts = products.filter(product => product.nickname)
-    const selectData = differentProducts.map(product => {
+    const rawSelectData = differentProducts.map(product => {
         const { nickname, original } = product
         const title = original.active ? nickname : `(SOLD OUT) : ${nickname}`
         return { value: nickname, name: title }
     })
-    const showSelect = differentProducts.length > 0
+    const soldOutItems = rawSelectData.filter((product) => product['name'].startsWith("(SOLD OUT)"))
+    const notSoldOutItems = rawSelectData.filter((product) => !product['name'].startsWith("(SOLD OUT)"))
+    const selectData = notSoldOutItems.concat(soldOutItems)
+    
+    const showSelect = selectData.length > 0
 
     const handleChange = e => {
         const productName = e.target.value

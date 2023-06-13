@@ -33,18 +33,18 @@ exports.handler = async (event) => {
       const {metadata,...rest} = item
       return rest
     })
+    const shippingRates = [
+        "shr_1MsQaUKyXfa4PBttoq5ER4Nv",
+        "shr_1MsQZlKyXfa4PBttuYKAFZwh",
+        "shr_1MsQZGKyXfa4PBtta8jeQUKU",
+        "shr_1MsIBeKyXfa4PBttzhs2qRbc",
+    ]
+    const shippingRatesDict = shippingRates.map(el => ({shipping_rate: el}))
     const session = await stripe.checkout.sessions.create({
       payment_method_types: ["card"],
       mode : "payment",
       billing_address_collection: "auto",
-      shipping_options : [
-        {
-          shipping_rate : "shr_1ImSucKyXfa4PBtt9iWTN7Be",
-        },
-        {
-          shipping_rate : "shr_1K0ESJKyXfa4PBttCcBY7wue"
-        }
-      ],
+      shipping_options : shippingRatesDict,
       allow_promotion_codes: true,
       shipping_address_collection: {
         allowed_countries: codes
