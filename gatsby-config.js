@@ -59,8 +59,8 @@ module.exports = {
         name: `Inspiratiq Shop`,
         short_name: `Inspiratiq`,
         start_url: `/`,
-        background_color: `#663399`,
-        theme_color: `#663399`,
+        background_color: `#ffb3c6`,
+        theme_color: `#ffb3c6`,
         display: `minimal-ui`,
         icon: `src/images/queenicon.png`, // This path is relative to the root of the site.
       },

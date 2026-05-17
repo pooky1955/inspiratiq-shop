@@ -154,11 +154,15 @@ const CheckoutButton = ({ handleCheckout, classes }) => {
       <Link to="/" className={classes.shoppingButton}>
         <div>Continue Shopping</div>
       </Link>
+		
+
       <button
         className={classes.checkoutButton}
-        onClick={handleCheckout}
+	onClick={handleCheckout}
       >
-        CHECKOUT
+	   
+    {/* <button className={classes.checkoutButton}> */}
+        CHECKOUT 
       </button>
     </div>
   );
@@ -208,7 +212,7 @@ const CartView = ({ classes, phoneMatches }) => {
     addItem,
     redirectToCheckout,
   } = useShoppingCart();
-  const [checkingOut, setCheckingOut] = useState(false);
+  // const [checkingOut, setCheckingOut] = useState(false);
   if (Object.values(cartDetails).length === 0) {
     return null;
   }
@@ -218,7 +222,7 @@ const CartView = ({ classes, phoneMatches }) => {
   );
 
   const handleCheckout = async () => {
-    setCheckingOut(true);
+    // setCheckingOut(true);
     handleSendNotes();
     const response = await fetch("/.netlify/functions/create-checkout", {
       method: "POST",
@@ -259,12 +263,13 @@ const CartView = ({ classes, phoneMatches }) => {
         </div>
         <Subtotal classes={classes} value={subTotalValue} />
         <Notes handleSubmit={handleSendNotes} />
-        {checkingOut
+      <CheckoutButton
+                  handleCheckout={handleCheckout}
+                  classes={classes}
+                />
+        {/* {checkingOut
           ? <CheckoutButton handleCheckout={() => {}} classes={classes} />
-          : <CheckoutButton
-            handleCheckout={handleCheckout}
-            classes={classes}
-          />}
+          : } */}
         <FloatingCartIcon classes={classes} phoneMatches={phoneMatches} />
       </div>
     </div>

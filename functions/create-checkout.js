@@ -6,8 +6,8 @@
  */
 
 const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY);
-//const validateCartItems = require("use-shopping-cart/src/serverUtil")
-  //.validateCartItems;
+// const validateCartItems = require("use-shopping-cart/src/serverUtil")
+//   .validateCartItems;
 
 /*
  * Product data can be loaded from anywhere. In this case, we’re loading it from
@@ -24,7 +24,7 @@ exports.handler = async (event) => {
   try {
     const productJSON = JSON.parse(event.body);
 
-    //const line_items = validateCartItems(inventory, productJSON);
+    // const line_items = validateCartItems(inventory, productJSON);
     const rawLineItems = productJSON
     const URL = process.env.URL
     const paymentDescription = rawLineItems.map(product => `${product.quantity}x ${product.metadata.displayName}`).join(", ")
@@ -34,10 +34,11 @@ exports.handler = async (event) => {
       return rest
     })
     const shippingRates = [
-        "shr_1MsQaUKyXfa4PBttoq5ER4Nv",
-        "shr_1MsQZlKyXfa4PBttuYKAFZwh",
-        "shr_1MsQZGKyXfa4PBtta8jeQUKU",
+      // Other shipping rate IDs
+        // "shr_1MsQaUKyXfa4PBttoq5ER4Nv",
+        // "shr_1MsQZlKyXfa4PBttuYKAFZwh",
         "shr_1MsIBeKyXfa4PBttzhs2qRbc",
+        "shr_1MsQZGKyXfa4PBtta8jeQUKU",
     ]
     const shippingRatesDict = shippingRates.map(el => ({shipping_rate: el}))
     const session = await stripe.checkout.sessions.create({
